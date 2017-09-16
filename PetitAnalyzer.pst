@@ -1,0 +1,1141 @@
+<?xml version="1.0"?>
+
+<st-source>
+<!-- 
+Name: PetitAnalyzer
+Notice: PetitParser is licensed under the MIT license.
+Comment: A port of the PetitParser
+
+http://source.lukas-renggli.ch/petit.html
+http://scg.unibe.ch/research/helvetia/petitparser
+
+PetitParser is licensed under the MIT license.
+DevelopmentPrerequisites: #(#(#any 'PetitParser-Preload' '') #(#any 'PetitParser' '') #(#any 'PetitTests' ''))
+Id: 75ee9309-5697-431e-b882-656414839c19
+KSignature: #('definedClasses' 14 'definedClassesHash' 11508851558 'extendedClasses' 14 'extendedClassesHash' 4753753942)
+KSignatureV2: #('definedClasses' 14 'definedClassesHash' 119563501433428483504309677554969967500164604733 'extendedClasses' 14 'extendedClassesHash' 975742672623303707063854299721977430665443299100)
+Namespace: PetitParser
+PackageName: PetitAnalyzer
+Parcel: #('PetitAnalyzer')
+ParcelDirectory: e:\develop\git\jse\PetitAnalyzer
+ParcelName: PetitAnalyzer
+PrerequisiteDescriptions: #(#(#name 'PetitParser-Preload') #(#name 'PetitParser' #componentType #package) #(#name 'PetitTests' #componentType #package))
+PrerequisiteParcels: #(#('PetitParser-Preload' '') #('PetitParser' '') #('PetitTests' ''))
+TestCoverage: false
+Url: http://source.lukas-renggli.ch/petit/PetitAnalyzer-lr.27.mcz
+Date: 2:16:01 PM September 16, 2017
+ -->
+<time-stamp>From VisualWorks®, 8.1.1 of 10. März 2016 on 16. September 2017 at 14:16:01</time-stamp>
+
+
+<do-it>(Dialog confirm: 'You are filing-in a Parcel source file!\\While this is possible it will not have\the same effect as loading the parcel.\None of the Parcel''s prerequisites will\be loaded and none of its load actions\will be performed.\\Are you sure you want to file-in?' withCRs) ifFalse: [self error: 'Parcel file-in abandoned.  Choose terminate or close.']</do-it>
+
+<class>
+<name>PPAnalyzerTest</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPAbstractParseTest</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Tests</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<class>
+<name>PPRewriterTest</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPAbstractParseTest</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>rewriter </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Tests</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<class>
+<name>PPSearcherTest</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPAbstractParseTest</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>searcher </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Tests</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<class>
+<name>PPSentinel</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPEpsilonParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars>current instance </class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<class>
+<name>PPProcessor</name>
+<environment>PetitParser</environment>
+<super>Core.Object</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>searches context </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPProcessor</class-id>
+<body>PPProcessor is an abstract superclass to PPRewriter and PPSearcher. It implements common functionality to search and transform grammars.The implementation of these matching algorithms is inspired from the refactoring engine by Don Roberts and John Brant. Contrary to the original implementation that worked on syntax trees, this implementation was generalized and works on possibly cyclic search patterns and grammar graphs.Instance Variables:	searches	&lt;Collection of: PPRule&gt;	The rules to be processed.	context	&lt;Dictionary&gt;	The current search context.</body>
+</comment>
+
+<class>
+<name>PPRewriter</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPProcessor</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>changed </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPRewriter</class-id>
+<body>PPRewriter walks over a grammar graph and transforms its parsers. If the grammar is modified, #hasChanged returns true.Instance Variables:	changed	&lt;Boolean&gt;	Indicates if the last operation has changed anything.</body>
+</comment>
+
+<class>
+<name>PPSearcher</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPProcessor</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>answer </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPSearcher</class-id>
+<body>PPSearcher walks over a grammar specification and matches its parsers against the patterns using #match:inContext:.Instance Variables:	answer &lt;Object&gt;	The answer propagated between matches.</body>
+</comment>
+
+<class>
+<name>PPRule</name>
+<environment>PetitParser</environment>
+<super>Core.Object</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>owner search </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPRule</class-id>
+<body>PPRule is the abstract superclass of all of the grammar search rules. A rule is the first class representation of a particular pattern to search for. The owner of the rule is the algorithms that actually executes the search. This arrangement allows multiple searches to be conducted by a single processor.Instance Variables:	owner	&lt;PPProcessor&gt;	The processor that is actually performing the search.	search	&lt;PPParser&gt;	The parse pattern to be searched.</body>
+</comment>
+
+<class>
+<name>PPReplaceRule</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPRule</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>verificationBlock </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPReplaceRule</class-id>
+<body>PPReplaceRule is the abstract superclass of all of the transforming rules. The rules change the grammar by replacing the node that matches the rule. Subclasses implement different strategies for this replacement.Instance Variables:	verificationBlock	&lt;BlockClosure&gt;	Is evaluated with the matching parser and allows for further verification of a match.</body>
+</comment>
+
+<class>
+<name>PPSearchRule</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPRule</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>answerBlock </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPSearchRule</class-id>
+<body>PPSearchRule is a rule that simply searches for matches to the rule. Every time a match is found, answerBlock is evaluated with the parser that matches and the current answer. This two-argument approach allows a collection to be formed from all of the matches, like with #inject:into:.Instance Variables:	answerBlock	&lt;BlockClosure&gt;	Block to evaluate with the matching node and the current answer.</body>
+</comment>
+
+<class>
+<name>PPPattern</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>verificationBlock </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPPattern</class-id>
+<body>PPPattern is meta-parser that is solely used to match other types of parsers. It cannot be used for actually parsing something. The constructor method determines what can be matched.</body>
+</comment>
+
+<class>
+<name>PPListPattern</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPPattern</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPListPattern</class-id>
+<body>PPListPattern that is used to match any number of parsers. As its superclass, it cannot be used for actually parsing something.</body>
+</comment>
+
+<class>
+<name>PPBlockReplaceRule</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPReplaceRule</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>replaceBlock </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPBlockReplaceRule</class-id>
+<body>PPBlockReplaceRule replaces the matching node by the result of evaluating replaceBlock. This allows arbitrary computation to come up with a replacement.Instance Variables:	replaceBlock &lt;BlockClosure&gt;	The block that returns the parer to replace to matching parser with.</body>
+</comment>
+
+<class>
+<name>PPParserReplaceRule</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPReplaceRule</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>replaceParser </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitAnalyzer-Core</category>
+<attributes>
+<package>PetitAnalyzer</package>
+</attributes>
+</class>
+
+<comment>
+<class-id>PetitParser.PPParserReplaceRule</class-id>
+<body>PPParserReplaceRule replaces a matched grammar with another grammar, which may include patterns from the matching grammar.Instance Variables:	replaceParser	&lt;PPParser&gt;	The parser to replace the matched parser with.</body>
+</comment>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>testing-cycleset</category>
+
+<body package="PetitAnalyzer">testCycleSetGrammarA	self grammarA do: [ :each | self assert: each cycleSet isEmpty ]</body>
+
+<body package="PetitAnalyzer">testCycleSetGrammarB	self grammarB do: [ :each | self assert: each cycleSet isEmpty ]</body>
+
+<body package="PetitAnalyzer">testCycleSetGrammarC	| grammar cycleSet |	grammar := self grammarC.	cycleSet := grammar cycleSet.	self assert: (cycleSet size = 2).	self assert: (cycleSet includes: grammar)</body>
+
+<body package="PetitAnalyzer">testCycleSetGrammarD	| grammar cycleSet |	grammar := self grammarD.		cycleSet := (grammar at: #S) cycleSet.	self assert: (cycleSet size = 4).	self assert: (cycleSet includes: (grammar at: #A)).	self assert: (cycleSet includes: (grammar at: #S)).		cycleSet := (grammar at: #A) cycleSet.	self assert: (cycleSet size = 4).	self assert: (cycleSet includes: (grammar at: #A)).	self assert: (cycleSet includes: (grammar at: #S)).	cycleSet := (grammar at: #B) cycleSet.	self assert: (cycleSet size = 2).	self assert: (cycleSet includes: (grammar at: #B))</body>
+
+<body package="PetitAnalyzer">testCycleSetGrammarE	| grammar cycleSet |	grammar := self grammarE.	cycleSet := grammar cycleSet.	self assert: (cycleSet size = 1).	self assert: (cycleSet includes: grammar)</body>
+
+<body package="PetitAnalyzer">testCycleSetInChoice	| parser cycleSet |	parser := PPUnresolvedParser new.	parser def: parser / $a asParser.	cycleSet := parser cycleSet.	self assert: (cycleSet size = 1).	self assert: (cycleSet includes: parser).		parser := PPUnresolvedParser new.	parser def: $a asParser / parser.	cycleSet := parser cycleSet.	self assert: (cycleSet size = 1).	self assert: (cycleSet includes: parser).</body>
+
+<body package="PetitAnalyzer">testCycleSetInSequence	| parser cycleSet |	parser := PPUnresolvedParser new.	parser def: parser , $a asParser.	cycleSet := parser cycleSet.	self assert: (cycleSet size = 1).	self assert: (cycleSet includes: parser).		parser := PPUnresolvedParser new.	parser def: nil asParser , parser.	cycleSet := parser cycleSet.	self assert: (cycleSet size = 1).	self assert: (cycleSet includes: parser).		parser := PPUnresolvedParser new.	parser def: $a asParser , parser.	cycleSet := parser cycleSet.	self assert: cycleSet isEmpty</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>testing-firstset</category>
+
+<body package="PetitAnalyzer">testFirstSetExpression	| grammar |	grammar := PPArithmeticParser new.	self assert: grammar start firstSet includes: '(-0123456789' epsilon: false.	self assert: grammar addition firstSet includes: '(-0123456789' epsilon: false.	self assert: grammar factors firstSet includes:  '(-0123456789' epsilon: false.	self assert: grammar multiplication firstSet includes:  '(-0123456789' epsilon: false.	self assert: grammar number firstSet includes: '-0123456789' epsilon: false.	self assert: grammar parentheses firstSet includes: '(' epsilon: false.	self assert: grammar power firstSet includes: '(-0123456789' epsilon: false.	self assert: grammar primary firstSet includes: '(-0123456789' epsilon: false.	self assert: grammar terms firstSet includes: '(-0123456789' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFirstSetGrammarA	| grammar |	grammar := self grammarA.	self assert: (grammar at: #a) firstSet includes: 'a' epsilon: false.	self assert: (grammar at: #b) firstSet includes: 'b' epsilon: false.	self assert: (grammar at: #c) firstSet includes: 'c' epsilon: false.	self assert: (grammar at: #d) firstSet includes: 'd' epsilon: false.	self assert: (grammar at: #e) firstSet includes: '' epsilon: true.	self assert: (grammar at: #S) firstSet includes: 'abc' epsilon: false.	self assert: (grammar at: #A) firstSet includes: 'ab' epsilon: true.	self assert: (grammar at: #B) firstSet includes: 'b' epsilon: true</body>
+
+<body package="PetitAnalyzer">testFirstSetGrammarB	| grammar |	grammar := self grammarB.	self assert: (grammar at: #E) firstSet includes: '(i' epsilon: false.	self assert: (grammar at: #Ep) firstSet includes: '+' epsilon: true.	self assert: (grammar at: #T) firstSet includes: '(i' epsilon: false.	self assert: (grammar at: #Tp) firstSet includes: '*' epsilon: true.	self assert: (grammar at: #F) firstSet includes: '(i' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFirstSetGrammarC	| grammar |	grammar := self grammarC.	self assert: grammar firstSet includes: '1' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFirstSetGrammarD	| grammar |	grammar := self grammarD.	self assert: (grammar at: #S) firstSet includes: 'ab' epsilon: false.	self assert: (grammar at: #A) firstSet includes: 'ab' epsilon: false.	self assert: (grammar at: #B) firstSet includes: 'a' epsilon: false.	self assert: (grammar at: #a) firstSet includes: 'a' epsilon: false.	self assert: (grammar at: #b) firstSet includes: 'b' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFirstSetGrammarE	self assert: self grammarE firstSet includes: '' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFirstSetLambda	| grammar |	grammar := PPLambdaParser new.	self assert: grammar start firstSet includes: '(ABCDEFGHIJKLMNOPQRSTUVWXYZ\abcdefghijklmnopqrstuvwxyz' epsilon: false.	self assert: grammar abstraction firstSet includes: '\' epsilon: false.	self assert: grammar application firstSet includes: '(' epsilon: false.	self assert: grammar expression firstSet includes: '(ABCDEFGHIJKLMNOPQRSTUVWXYZ\abcdefghijklmnopqrstuvwxyz' epsilon: false.	self assert: grammar variable firstSet includes: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' epsilon: false</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>testing-followset</category>
+
+<body package="PetitAnalyzer">testFollowSetExampleA	| grammar followSets |	grammar := self grammarA.	followSets := (grammar at: #S) followSets.	self assert: (followSets at: (grammar at: #a)) includes: 'bc' epsilon: false.	self assert: (followSets at: (grammar at: #b)) includes: 'bc' epsilon: false.	self assert: (followSets at: (grammar at: #c)) includes: 'd' epsilon: false.	self assert: (followSets at: (grammar at: #d)) includes: '' epsilon: true.	self assert: (followSets at: (grammar at: #e)) includes: 'bc' epsilon: false.	self assert: (followSets at: (grammar at: #S)) includes: '' epsilon: true.	self assert: (followSets at: (grammar at: #A)) includes: 'bc' epsilon: false.	self assert: (followSets at: (grammar at: #B)) includes: 'bc' epsilon: false</body>
+
+<body package="PetitAnalyzer">testFollowSetExampleB	| grammar followSets |	grammar := self grammarB.	followSets := (grammar at: #E) followSets.	self assert: (followSets at: (grammar at: #E)) includes: ')' epsilon: true.	self assert: (followSets at: (grammar at: #Ep)) includes: ')' epsilon: true.	self assert: (followSets at: (grammar at: #T)) includes: ')+' epsilon: true.	self assert: (followSets at: (grammar at: #Tp)) includes: ')+' epsilon: true.	self assert: (followSets at: (grammar at: #F)) includes: ')*+' epsilon: true</body>
+
+<body package="PetitAnalyzer">testFollowSetExampleC	self assert: self grammarC followSet includes: '+' epsilon: true</body>
+
+<body package="PetitAnalyzer">testFollowSetExampleD	| grammar followSets |	grammar := self grammarD.	followSets := (grammar at: #S) followSets.	self assert: (followSets at: (grammar at: #S)) includes: 'a' epsilon: true.	self assert: (followSets at: (grammar at: #A)) includes: 'ab' epsilon: true.	self assert: (followSets at: (grammar at: #B)) includes: 'ab' epsilon: true.	self assert: (followSets at: (grammar at: #a)) includes: 'ab' epsilon: true.	self assert: (followSets at: (grammar at: #b)) includes: 'ab' epsilon: true</body>
+
+<body package="PetitAnalyzer">testFollowSetExampleE	self assert: self grammarE followSet includes: '' epsilon: true</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>testing-transform</category>
+
+<body package="PetitAnalyzer">testDelegateReplace	| one other delegate |	one := $a asParser.	other := $b asParser.	delegate := one token.	self assert: delegate children first == one.	self deny: delegate children first == other.		delegate replace: other with: one.	self assert: delegate children first == one.	self deny: delegate children first == other.		delegate replace: one with: other.	self deny: delegate children first == one.	self assert: delegate children first == other</body>
+
+<body package="PetitAnalyzer">testListReplace	| one other another list |	one := $a asParser.	other := $b asParser.	another := $c asParser.	list := one , another , one.	self assert: list children first == one.	self assert: list children petitSecond == another.	self assert: list children last == one.		list replace: other with: one.	self assert: list children first == one.	self assert: list children petitSecond == another.	self assert: list children last == one.		list replace: one with: other.	self assert: list children first == other.	self assert: list children petitSecond == another.	self assert: list children last == other.		list replace: another with: one.	self assert: list children first == other.	self assert: list children petitSecond == one.	self assert: list children last == other</body>
+
+<body package="PetitAnalyzer">testTransformIdentityGrammarC	| orig tran |	orig := self grammarC.	tran := orig transform: [ :each | each ].	self deny: orig == tran.	self deny: orig children first == tran children first.	self deny: orig children first children first == tran children first children first.	self deny: orig children first children last == tran children first children last.	self deny: orig children last == tran children last.		self assert: orig class == PPChoiceParser.	self assert: orig children first class == PPSequenceParser.	self assert: orig children first children first == orig.	self assert: orig children first children last == orig.	self assert: orig children last class == PPLiteralObjectParser.	self assert: tran class == PPChoiceParser.	self assert: tran children first class == PPSequenceParser.	self assert: tran children first children first == tran.	self assert: tran children first children last == tran.	self assert: tran children last class == PPLiteralObjectParser</body>
+
+<body package="PetitAnalyzer">testTransformIdentityGrammarE	| orig tran |	orig := self grammarE.	tran := orig transform: [ :each | each ].	self deny: orig == tran.	self deny: orig children first = tran children first.		self assert: orig class == PPDelegateParser.	self assert: orig children first == orig.		self assert: tran class == PPDelegateParser.	self assert: tran children first == tran</body>
+
+<body package="PetitAnalyzer">testTransformWrapGrammarC	| orig tran |	orig := self grammarC.	tran := orig transform: [ :each | each memoized ].	self assert: orig class == PPChoiceParser.	self assert: orig children first class == PPSequenceParser.	self assert: orig children first children first == orig.	self assert: orig children first children last == orig.	self assert: orig children last class == PPLiteralObjectParser.		self assert: tran class == PPMemoizedParser.	self assert: tran children first class == PPChoiceParser.	self assert: tran children first children first class == PPMemoizedParser.	self assert: tran children first children first children first class == PPSequenceParser.	self assert: tran children first children first children first children first == tran.	self assert: tran children first children first children first children last == tran.	self assert: tran children first children last class == PPMemoizedParser.	self assert: tran children first children last children first class == PPLiteralObjectParser</body>
+
+<body package="PetitAnalyzer">testTransformWrapGrammarE	| orig tran |	orig := self grammarE.	tran := orig transform: [ :each | each memoized ].		self assert: orig class == PPDelegateParser.	self assert: orig children first == orig.		self assert: tran class == PPMemoizedParser.	self assert: tran children first class == PPDelegateParser.	self assert: tran children first children first == tran</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>utilities</category>
+
+<body package="PetitAnalyzer">assert: aCollection includes: aString epsilon: aBoolean	| parsers checker stream |	parsers := aCollection		collect: [ :each | each end ].	checker := [ :string |		parsers anySatisfy: [ :parser |			(parser parse: string asPetitStream)				isPetitFailure not ] ].	stream := WriteStream on: String new.	32 to: 127 do: [ :index |		(checker value: (String with: (Character value: index)))			ifTrue: [ stream nextPut: (Character value: index) ] ].	self		assert: stream contents = aString		description: 'Expected ' , aString printString , ', but got ' , stream contents printString.	self		assert: (checker value: '') = aBoolean		description: 'Expected epsilon to ' , (aBoolean ifTrue: [ 'be' ] ifFalse: [ 'not be' ]) , '  included'</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>accessing</category>
+
+<body package="PetitAnalyzer">grammarA	"Güting, Erwig, Übersetzerbau, Springer (p.63)"	| grammar |	grammar := Dictionary new.		" terminals "	grammar at: #a put: $a asParser.	grammar at: #b put: $b asParser.	grammar at: #c put: $c asParser.	grammar at: #d put: $d asParser.	grammar at: #e put: nil asParser.		" non terminals "	grammar at: #B put: (grammar at: #b) / (grammar at: #e).	grammar at: #A put: (grammar at: #a) / (grammar at: #B).	grammar at: #S put: (grammar at: #A) , (grammar at: #B) , (grammar at: #c) , (grammar at: #d).		^ grammar</body>
+
+<body package="PetitAnalyzer">grammarB	"The canonical grammar to exercise first- and follow-set calculation, probably originally from the dragon-book."	| grammar |	grammar := Dictionary new.	#(E Ep T Tp F) 		do: [ :each | grammar at: each put: (PPUnresolvedParser named: each) ].			(grammar at: #E)		def: (grammar at: #T) , (grammar at: #Ep).	(grammar at: #Ep)	def: ($+ asParser , (grammar at: #T) , (grammar at: #Ep)) optional.		(grammar at: #T)		def: (grammar at: #F) , (grammar at: #Tp).	(grammar at: #Tp)	def: ($* asParser , (grammar at: #F) , (grammar at: #Tp)) optional.		(grammar at: #F)		def: ($( asParser , (grammar at: #E) , $) asParser) / $i asParser.				#(E Ep T Tp F) 		do: [ :each | (grammar at: each) name: each ].		^ grammar</body>
+
+<body package="PetitAnalyzer">grammarC	"A highly recrusive grammar."	| grammar |	grammar := PPUnresolvedParser new.	grammar def: (grammar , $+ asParser , grammar) / $1 asParser.	^ grammar</body>
+
+<body package="PetitAnalyzer">grammarD	"A highly ambiguous grammar from: Saichaitanya Jampana. Exploring the problem of ambiguity in context-free grammars. Master’s thesis, Oklahoma State University, July 2005."	| grammar |	grammar := Dictionary new.	#(S A a B b)			do: [ :each | grammar at: each put: (PPUnresolvedParser named: each) ].		(grammar at: #a)		def: $a asParser.	(grammar at: #b)		def: $b asParser.			(grammar at: #S)		def: (grammar at: #A) , (grammar at: #B) / (grammar at: #a).	(grammar at: #A)		def: (grammar at: #S) , (grammar at: #B) / (grammar at: #b).	(grammar at: #B)		def: (grammar at: #B) , (grammar at: #A) / (grammar at: #a).			^ grammar</body>
+
+<body package="PetitAnalyzer">grammarE	"The most stupid parser, it just references itself and never consumes anything. All algorithms should survive such an attack."	| parser |	parser := PPDelegateParser new.	parser setParser: parser.	^ parser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest</class-id> <category>testing</category>
+
+<body package="PetitAnalyzer">testAllParsers	| p1 p2 p3 |	p1 := #lowercase asParser.	p2 := p1 ==&gt; #asUppercase.	p3 := PPUnresolvedParser new.	p3 def: p2 / p3.	self assert: p1 allParsers size = 1.	self assert: p2 allParsers size = 2.	self assert: p3 allParsers size = 3</body>
+
+<body package="PetitAnalyzer">testIsNullable	self assert: $a asParser star isNullable.	self assert: nil asParser isNullable.	self deny: $a asParser plus isNullable.		self deny: PPLiteralSequenceParser new isNullable.	self deny: PPLiteralObjectParser new isNullable.	self deny: PPPredicateParser new isNullable.	self deny: PPChoiceParser new isNullable.	self deny: PPSequenceParser new isNullable.	self deny: PPAndParser new isNullable.	self deny: PPTokenParser new isNullable</body>
+
+<body package="PetitAnalyzer">testIsTerminal	self assert: PPEpsilonParser new isTerminal.	self assert: PPFailingParser new isTerminal.	self assert: PPPluggableParser new isTerminal.	self assert: PPLiteralObjectParser new isTerminal.	self assert: PPLiteralSequenceParser new isTerminal.	self assert: PPPredicateObjectParser new isTerminal.	self assert: PPPredicateSequenceParser new isTerminal.		self deny: ($a asParser / $b asParser) isTerminal.	self deny: ($a asParser , $b asParser) isTerminal.	self deny: ($a asParser and) isTerminal.	self deny: ($a asParser not) isTerminal</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPAnalyzerTest class</class-id> <category>accessing</category>
+
+<body package="PetitAnalyzer">packageNamesUnderTest	^ #('PetitAnalyzer')</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriterTest</class-id> <category>running</category>
+
+<body package="PetitAnalyzer">setUp	rewriter := PPRewriter new</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriterTest</class-id> <category>testing</category>
+
+<body package="PetitAnalyzer">testDuplicationRemoval	| duplicate before between after result |	duplicate := PPPattern any.	before := PPListPattern any.	between := PPListPattern any.	after := PPListPattern any.	rewriter		replace: before / duplicate / between / duplicate / after		with: before / duplicate / between / after.		result := rewriter execute: $a asParser / $a asParser.	self assert: rewriter hasChanged.	self assert: result children size = 1.	self assert: result children first literal = $a.		result := rewriter execute: $b asParser / $a asParser / $a asParser.	self assert: rewriter hasChanged.	self assert: result children size = 2.	self assert: result children first literal = $b.	self assert: result children last literal = $a.		result := rewriter execute: $a asParser / $b asParser / $a asParser.	self assert: rewriter hasChanged.	self assert: result children size = 2.	self assert: result children first literal = $a.	self assert: result children last literal = $b.		result := rewriter execute: $a asParser / $a asParser / $b asParser.	self assert: rewriter hasChanged.	self assert: result children size = 2.	self assert: result children first literal = $a.	self assert: result children last literal = $b</body>
+
+<body package="PetitAnalyzer">testPatternRemoval	| pattern result |	pattern := PPPattern kind: PPLiteralObjectParser.	rewriter		replace: pattern / pattern		with: pattern.		result := rewriter execute: $a asParser / $a asParser.	self assert: rewriter hasChanged.	self assert: result class = PPLiteralObjectParser.	self assert: result literal = $a.		result := rewriter execute: $a asParser / $a asParser / $a asParser.	self deny: rewriter hasChanged.	self assert: result class = PPChoiceParser.	self assert: result children size = 3</body>
+
+<body package="PetitAnalyzer">testPatternReplacement	| pattern result |	pattern := PPPattern kind: PPLiteralObjectParser.	rewriter		replace: pattern		with: pattern , pattern.		result := rewriter execute: $a asParser.	self assert: rewriter hasChanged.	self assert: result class = PPSequenceParser.	self assert: result children first literal = $a.	self assert: result children last literal = $a.		result := rewriter execute: #any asParser.	self deny: rewriter hasChanged.	self assert: result class = PPPredicateObjectParser</body>
+
+<body package="PetitAnalyzer">testReplaceLiteral	| result |	rewriter		replace: $a asParser 		with: $b asParser.		result := rewriter execute: $a asParser.	self assert: rewriter hasChanged.	self assert: result literal = $b.		result := rewriter execute: $c asParser.	self deny: rewriter hasChanged.	self assert: result literal = $c.		result := rewriter execute: $a asParser , $b asParser , $c asParser.	self assert: rewriter hasChanged.	self assert: result children size = 3.	self assert: result children first literal = $b.	self assert: result children last literal = $c</body>
+
+<body package="PetitAnalyzer">testSwapTwoPattern	| first second result |	first := PPPattern any.	second := PPPattern any.	rewriter		replace: first , second		with: second , first.		result := rewriter execute: $a asParser , $b asParser.	self assert: rewriter hasChanged.	self assert: result children first literal = $b.	self assert: result children last literal = $a.		result := rewriter execute: $a asParser / $b asParser.	self deny: rewriter hasChanged.	self assert: result children first literal = $a.	self assert: result children last literal = $b</body>
+
+<body package="PetitAnalyzer">testWrapLiteral	| result |	rewriter		replace: $a asParser		withValueFrom: [ :parser | parser token ].		result := rewriter execute: $a asParser.	self assert: rewriter hasChanged.	self assert: result class = PPTokenParser.	self assert: result children first literal = $a.		result := rewriter execute: $c asParser.	self deny: rewriter hasChanged.	self assert: result literal = $c.		result := rewriter execute: $a asParser , $b asParser.	self assert: rewriter hasChanged.	self assert: result children first class = PPTokenParser.	self assert: result children first children first literal = $a.	self assert: result children last class = PPLiteralObjectParser.	self assert: result children last literal = $b</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcherTest</class-id> <category>testing-copy</category>
+
+<body package="PetitAnalyzer">testCopyMatchAction	| old new |	old := $a asParser ==&gt; [ :token | $b ].	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchDelegate	| old new |	old := $a asParser token trim.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchEpsilon	| old new |	old := nil asParser.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchFailure	| old new |	old := PPFailingParser message: 'problem'.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchList	| old new |	old := $a asParser , $b asParser , $c asParser.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchLiteral	| old new |	old := $a asParser.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchPluggable	| old new |	old := [ :stream | ] asParser.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchPredicate	| old new |	old := #word asParser.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchRecursiveDelegate	| old new |	old := PPDelegateParser new.	old setParser: old.	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+
+<body package="PetitAnalyzer">testCopyMatchRecursiveList	| old new |	old := PPChoiceParser new.	old setParsers: (Array with: old).	new := old copyInContext: Dictionary new.	self assert: (old match: old inContext: Dictionary new).	self assert: (old match: new inContext: Dictionary new).	self deny: (old == new).</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcherTest</class-id> <category>testing</category>
+
+<body package="PetitAnalyzer">testAnyPattern	| result |	searcher		matches: PPPattern any		do: [ :parser :answer | answer add: parser; yourself ].	result := searcher		execute: ($a asParser)		initialAnswer: OrderedCollection new.	self assert: result size = 1.		result := searcher		execute: ($a asParser star)		initialAnswer: OrderedCollection new.	self assert: result size = 2.		result := searcher		execute: ($a asParser , $b asParser)		initialAnswer: OrderedCollection new.	self assert: result size = 3</body>
+
+<body package="PetitAnalyzer">testKindPattern	| result |	searcher 		matches: (PPPattern kind: PPLiteralObjectParser)		do: [ :parser :answer | answer add: parser; yourself ].	result := searcher		execute: ($a asParser)		initialAnswer: OrderedCollection new.	self assert: result size = 1.	self assert: (result allSatisfy: [ :each | each class = PPLiteralObjectParser ]).		result := searcher		execute: (#any asParser)		initialAnswer: OrderedCollection new.	self assert: result isEmpty.		result := searcher		execute: ($a asParser / #any asParser , $b asParser)		initialAnswer: OrderedCollection new.	self assert: result size = 2.	self assert: (result allSatisfy: [ :each | each class = PPLiteralObjectParser ])</body>
+
+<body package="PetitAnalyzer">testMatchesAny	| result |	searcher		matchesAnyOf: (Array 			with: $a asParser			with: $b asParser)		do: [ :parser :answer | answer add: parser; yourself ].	result := searcher		execute: $a asParser , $b asParser , $c asParser		initialAnswer: OrderedCollection new.		self assert: result size = 2.	self assert: result first literal = $a.	self assert: result last literal = $b</body>
+
+<body package="PetitAnalyzer">testMultiplePattern	| result |	searcher		matches: $a asParser		do: [ :parser :answer | answer first add: parser. answer ].	searcher		matches: PPPattern any		do: [ :parser :answer | answer petitSecond add: parser. answer ].	result := searcher		execute: $a asParser , $a asParser , $b asParser		initialAnswer: (Array 			with: OrderedCollection new 			with: OrderedCollection new).		self assert: result first size = 2.	self assert: result first first literal = $a.	self assert: result first last literal = $a.		self assert: result last size = 2.	self assert: result last first class = PPSequenceParser.	self assert: result last last literal = $b</body>
+
+<body package="PetitAnalyzer">testNamePattern	| result |	searcher 		matches: (PPPattern name: 'foo')		do: [ :parser :answer | answer add: parser; yourself ].	result := searcher 		execute: ($a asParser)		initialAnswer: OrderedCollection new.	self assert: result isEmpty.		result := searcher		execute: ($a asParser name: 'foo')		initialAnswer: OrderedCollection new.	self assert: result size = 1.	self assert: result first name = 'foo'.		result := searcher		execute: ($a asParser name: 'bar') , ($b asParser name: 'foo')		initialAnswer: OrderedCollection new.	self assert: result size = 1.	self assert: result first name = 'foo'</body>
+
+<body package="PetitAnalyzer">testNewPattern	self 		should: [ PPPattern new ]		raise: Error</body>
+
+<body package="PetitAnalyzer">testRecursivePattern	| recursive |	recursive := PPDelegateParser new.	recursive setParser: recursive.	searcher 		matches: recursive 		do: [ :parser :answer | parser ].		self assert: (searcher execute: recursive) = recursive.	self assert: (searcher execute: $a asParser) isNil.	self assert: (searcher execute: $a asParser / $b asParser star) isNil</body>
+
+<body package="PetitAnalyzer">testRepeatedPattern	| pattern result |	searcher		matches: (pattern := PPPattern any) , pattern		do: [ :parser :answer | answer add: parser; yourself ].	result := searcher		execute: ($a asParser , $b asParser)		initialAnswer: OrderedCollection new.	self assert: result isEmpty.		result := searcher		execute: $a asParser , $a asParser		initialAnswer: OrderedCollection new.	self assert: result size = 1.		result := searcher		execute: ($a asParser , ($a asParser , $b asParser))		initialAnswer: OrderedCollection new.	self assert: result isEmpty.		result := searcher		execute: ($b asParser , ($a asParser , $a asParser))		initialAnswer: OrderedCollection new.	self assert: result size = 1</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcherTest</class-id> <category>running</category>
+
+<body package="PetitAnalyzer">setUp	searcher := PPSearcher new</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcherTest</class-id> <category>testing-lists</category>
+
+<body package="PetitAnalyzer">testListInfix	| result |	searcher		matches: PPListPattern any , $a asParser , PPListPattern any		do: [ :parser :answer | true ].		result := searcher		execute: $a asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $a asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $b asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $b asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser , $b asParser		initialAnswer: false.	self deny: result</body>
+
+<body package="PetitAnalyzer">testListPostfix	| result |	searcher		matches: PPListPattern any , $b asParser		do: [ :parser :answer | true ].		result := searcher		execute: $a asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $b asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $a asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $b asParser , $a asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $b asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $b asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser , $b asParser		initialAnswer: false.	self assert: result</body>
+
+<body package="PetitAnalyzer">testListPrefix	| result |	searcher		matches: $a asParser , PPListPattern any		do: [ :parser :answer | true ].		result := searcher		execute: $a asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $b asParser , $b asParser		initialAnswer: false.	self deny: result.				result := searcher		execute: $a asParser , $a asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $b asParser , $a asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $a asParser , $a asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $b asParser , $a asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $a asParser , $b asParser , $b asParser		initialAnswer: false.	self assert: result.		result := searcher		execute: $b asParser , $a asParser , $b asParser		initialAnswer: false.	self deny: result.		result := searcher		execute: $b asParser , $b asParser , $b asParser		initialAnswer: false.	self deny: result</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSentinel class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">instance	^ instance ifNil: [ instance := self new ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPProcessor</class-id> <category>private</category>
+
+<body package="PetitAnalyzer">context	^ context</body>
+
+<body package="PetitAnalyzer">performRule: aRule on: aParser	context := Dictionary new.	^ aRule performOn: aParser</body>
+
+<body package="PetitAnalyzer">performRulesOn: aParser	| result |	searches do: [ :rule |		result := self performRule: rule on: aParser.		result notNil ifTrue: [ ^ result ] ].	^ nil</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPProcessor</class-id> <category>rules</category>
+
+<body package="PetitAnalyzer">addRule: aGrammarRule	searches add: (aGrammarRule setOwner: self)</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPProcessor</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">initialize	super initialize.	searches := OrderedCollection new.	context := Dictionary new</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPProcessor class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">new	^ self basicNew initialize</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriter</class-id> <category>accessing</category>
+
+<body package="PetitAnalyzer">replace: aSearchParser with: aReplaceParser	self replace: aSearchParser with: aReplaceParser when: [ :node | true ]</body>
+
+<body package="PetitAnalyzer">replace: aSearchParser with: aReplaceParser when: aValidationBlock	self addRule: (PPParserReplaceRule searchFor: aSearchParser replaceWith: aReplaceParser when: aValidationBlock)</body>
+
+<body package="PetitAnalyzer">replace: aSearchParser withValueFrom: aReplaceBlock	self replace: aSearchParser withValueFrom: aReplaceBlock when: [ :node | true ]</body>
+
+<body package="PetitAnalyzer">replace: aSearchParser withValueFrom: aReplaceBlock when: aValidationBlock	self addRule: (PPBlockReplaceRule searchFor: aSearchParser replaceWith: aReplaceBlock when: aValidationBlock)</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriter</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">initialize	super initialize.	changed := false</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriter</class-id> <category>testing</category>
+
+<body package="PetitAnalyzer">hasChanged	"Answer if the last operation has changed anything."		^ changed</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRewriter</class-id> <category>public</category>
+
+<body package="PetitAnalyzer">execute: aParser	"Perform the replace rules of the receiver on aParser, answer the resulting parser."	| previous result |	previous := context.	changed := false.	context := Dictionary new.	result := aParser transform: [ :each |		| transformed |		transformed := self performRulesOn: each.		transformed isNil			ifTrue: [ each ]			ifFalse: [ changed := true. transformed ] ].	context := previous.	^ result</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcher</class-id> <category>public</category>
+
+<body package="PetitAnalyzer">execute: aParser	"Perform the search rules of the receiver on aParser. Answer the result of the search."	^ self execute: aParser initialAnswer: nil</body>
+
+<body package="PetitAnalyzer">execute: aParser initialAnswer: anObject	"Perform the search rules of the receiver on aParser. Inject anObject into the matches and answer the result."	| previous |	previous := context.	answer := anObject.	context := Dictionary new.	aParser allParsersDo: [ :each | 		self performRulesOn: each ].	context := previous.	^ answer</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcher</class-id> <category>private</category>
+
+<body package="PetitAnalyzer">answer	^ answer</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcher</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">setAnswer: anObject	answer := anObject</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearcher</class-id> <category>rules</category>
+
+<body package="PetitAnalyzer">matches: aParser do: anAnswerBlock	"Add a search expression aParser, evaluate anAnswerBlock with the matched node and the previous answer."	self addRule: (PPSearchRule searchFor: aParser thenDo: anAnswerBlock)</body>
+
+<body package="PetitAnalyzer">matchesAnyOf: aCollectionOfParsers do: anAnswerBlock	"Add a collection of search expressions aCollectionOfParsers, evaluate anAnswerBlock with the matched node and the previous answer."		aCollectionOfParsers		do: [ :each | self matches: each do: anAnswerBlock ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRule</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">canMatch: aParser 	^ true</body>
+
+<body package="PetitAnalyzer">foundMatchFor: aParser 	self subclassResponsibility</body>
+
+<body package="PetitAnalyzer">performOn: aParser	(search match: aParser inContext: owner context)		ifFalse: [ ^ nil ].	(self canMatch: aParser)		ifFalse: [ ^ nil ].	^ self foundMatchFor: aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRule</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">initialize</body>
+
+<body package="PetitAnalyzer">setOwner: aGrammarSearcher	owner := aGrammarSearcher</body>
+
+<body package="PetitAnalyzer">setSearch: aParser	search := aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRule class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">new	^ self basicNew initialize</body>
+
+<body package="PetitAnalyzer">searchFor: aParser	^ self new setSearch: aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPReplaceRule</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">initialize	super initialize.	verificationBlock := [ :parser | true ]</body>
+
+<body package="PetitAnalyzer">setVerificationBlock: aBlock	verificationBlock := aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPReplaceRule</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">canMatch: aParser 	^ verificationBlock value: aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearchRule</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">setAnswerBlock: aBlock	answerBlock := aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearchRule</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">canMatch: aParser	owner setAnswer: (answerBlock value: aParser value: owner answer).	^ super canMatch: aParser</body>
+
+<body package="PetitAnalyzer">foundMatchFor: aParser 	^ aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSearchRule class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">searchFor: aParser thenDo: aBlock	^ (self searchFor: aParser) setAnswerBlock: aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPattern</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">copyInContext: aDictionary seen: aSeenDictionary	^ aDictionary at: self</body>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	(verificationBlock value: aParser value: aDictionary)		ifFalse: [ ^ false ].	^ (aDictionary at: self ifAbsentPut: [ aParser ])		match: aParser inContext: aDictionary seen: anIdentitySet</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPattern</class-id> <category>comparing</category>
+
+<body package="PetitAnalyzer">= aParser	^ self == aParser or: [ self name notNil and: [ self name = aParser name ] ]</body>
+
+<body package="PetitAnalyzer">hash	^ self identityHash</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPattern</class-id> <category>parsing</category>
+
+<body package="PetitAnalyzer">parseOn: aStream	"This is just a pattern used for matching. It should not be used in actual grammars."	self shouldNotImplement</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPattern</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">initializeOn: aBlock	verificationBlock := aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPattern class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">any	"Matches all parsers."	^ self on: [ :parser :context | true ]</body>
+
+<body package="PetitAnalyzer">kind: aBehavior	"Matches parsers that are of the class aBehavior."	^ self on: [ :parser :context | parser class = aBehavior ]</body>
+
+<body package="PetitAnalyzer">name: aString	"Matches parsers with the name aString."	^ self on: [ :parser :context | parser name = aString ]</body>
+
+<body package="PetitAnalyzer">new	self error: 'Use an explicit constructur on ' , self name</body>
+
+<body package="PetitAnalyzer">on: aBlock	"Matches parsers that satisfy an arbitrary condition in aBlock."	^ self basicNew initializeOn: aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPBlockReplaceRule</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">setReplaceBlock: aBlock	replaceBlock := aBlock</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPBlockReplaceRule</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">foundMatchFor: aParser 	^ replaceBlock value: aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPBlockReplaceRule class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">searchFor: aSearchParser replaceWith: aReplaceBlock when: aVerificationBlock	^ (self searchFor: aSearchParser) 		setReplaceBlock: aReplaceBlock;		setVerificationBlock: aVerificationBlock;		yourself</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParserReplaceRule</class-id> <category>matching</category>
+
+<body package="PetitAnalyzer">foundMatchFor: aParser 	^ replaceParser copyInContext: owner context</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParserReplaceRule</class-id> <category>initialization</category>
+
+<body package="PetitAnalyzer">setReplaceParser: aParser	replaceParser := aParser</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParserReplaceRule class</class-id> <category>instance creation</category>
+
+<body package="PetitAnalyzer">searchFor: aSearchParser replaceWith: aReplaceParser when: aVerificationBlock	^ (self searchFor: aSearchParser) 		setReplaceParser: aReplaceParser;		setVerificationBlock: aVerificationBlock;		yourself</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPTokenParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self tokenClass = aParser tokenClass ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPredicateParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self block = aParser block and: [ self message = aParser message ] ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPEpsilonParser</class-id> <category>*petitanalyzer-testing</category>
+
+<body package="PetitAnalyzer">isNullable	^ true</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPOptionalParser</class-id> <category>*petitanalyzer-testing</category>
+
+<body package="PetitAnalyzer">isNullable	^ true</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRepeatingParser</class-id> <category>*petitanalyzer-testing</category>
+
+<body package="PetitAnalyzer">isNullable	^ min = 0</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPRepeatingParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self min = aParser min and: [ self max = aParser max ] ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPActionParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	"This is the default implementation to match two parsers. This code can properly handle recursion. This is code is supposed to be overridden in subclasses that add new state."	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self block = aParser block ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPluggableParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self block = aParser block ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPDelegateParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">copyInContext: aDictionary seen: aSeenDictionary	aSeenDictionary 		at: self 		ifPresent: [ :value | ^ value ].	^ (aSeenDictionary at: self put: self copy)		setParser: (parser copyInContext: aDictionary seen: aSeenDictionary);		yourself</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPDelegateParser</class-id> <category>*petitanalyzer-transforming</category>
+
+<body package="PetitAnalyzer">replace: aParser with: anotherParser	super replace: aParser with: anotherParser.	parser == aParser ifTrue: [ parser := anotherParser ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPSequenceParser</class-id> <category>*petitanalyzer-private</category>
+
+<body package="PetitAnalyzer">cycleSet: aDictionary	| firstSet |	1 to: parsers size do: [ :index |		firstSet := aDictionary at: (parsers at: index).		(firstSet anySatisfy: [ :each | each isNullable ])			ifFalse: [ ^ parsers copyFrom: 1 to: index ] ].	^ parsers</body>
+
+<body package="PetitAnalyzer">firstSets: aFirstDictionary into: aSet	| nullable |	parsers do: [ :parser |		nullable := false.		(aFirstDictionary at: parser) do: [ :each |			each isNullable				ifTrue: [ nullable := true ]				ifFalse: [ aSet add: each ] ].		nullable			ifFalse: [ ^ self ] ].	aSet add: PPSentinel instance</body>
+
+<body package="PetitAnalyzer">followSets: aFollowDictionary firstSets: aFirstDictionary into: aSet	parsers keysAndValuesDo: [ :index :parser |		| followSet firstSet |		followSet := aFollowDictionary at: parser.		index = parsers size			ifTrue: [ followSet addAll: aSet ]			ifFalse: [				(self class withAll: (parsers 					copyFrom: index + 1 to: parsers size))						firstSets: aFirstDictionary						into: (firstSet := IdentitySet new).				(firstSet anySatisfy: [ :each | each isNullable ])					ifTrue: [ followSet addAll: aSet ].				followSet addAll: (firstSet 					reject: [ :each | each isNullable ]) ] ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPLiteralParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self literal = aParser literal and: [ self message = aParser message ] ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPPredicateSequenceParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self size = aParser size ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPListParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">copyInContext: aDictionary seen: aSeenDictionary	| copy copies |	aSeenDictionary at: self ifPresent: [ :value | ^ value ].	copy := aSeenDictionary at: self put: self copy.	copies := OrderedCollection new.	parsers do: [ :each |		| result |		result := each 			copyInContext: aDictionary			seen: aSeenDictionary.		(result respondsTo: #do:)			ifTrue: [ copies addAll: result ]			ifFalse: [ copies add: result ] ].	^ copy		setParsers: copies;		yourself</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPListParser</class-id> <category>*petitanalyzer-transforming</category>
+
+<body package="PetitAnalyzer">replace: aParser with: anotherParser	super replace: aParser with: anotherParser.	parsers keysAndValuesDo: [ :index :parser |		parser == aParser			ifTrue: [ parsers at: index put: anotherParser ] ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPFailingParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	^ (super match: aParser inContext: aDictionary seen: anIdentitySet) and: [ self message = aParser message ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-enumerating</category>
+
+<body package="PetitAnalyzer">allParsers	"Answer all the parse nodes of the receiver."	| result |	result := OrderedCollection new.	self allParsersDo: [ :parser | result addLast: parser ].	^ result</body>
+
+<body package="PetitAnalyzer">allParsersDo: aBlock	"Iterate over all the parse nodes of the receiver."	self allParsersDo: aBlock seen: IdentitySet new</body>
+
+<body package="PetitAnalyzer">allParsersDo: aBlock seen: aSet	"Iterate over all the parse nodes of the receiver, do not visit and follow the ones contained in aSet."	(aSet includes: self)		ifTrue: [ ^ self ].	aSet add: self.	aBlock value: self.	self children		do: [ :each | each allParsersDo: aBlock seen: aSet ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">copyInContext: aDictionary	^ self copyInContext: aDictionary seen: IdentityDictionary new</body>
+
+<body package="PetitAnalyzer">copyInContext: aDictionary seen: aSeenDictionary	^ aSeenDictionary at: self ifAbsentPut: [ self copy ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-querying</category>
+
+<body package="PetitAnalyzer">cycleSet	"Answer a set of all nodes that are within one or more cycles of left-recursion. This is generally not a problem if at least one of the nodes is memoized, but it might make the grammar very inefficient and should be avoided if possible."		| cycles |	cycles := IdentitySet new.	self cycleSet: OrderedCollection new firstSets: self firstSets into: cycles.	^ cycles</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-private</category>
+
+<body package="PetitAnalyzer">cycleSet: aDictionary	"PRIVATE: Answer the children that could be part of a cycle-set with the receiver, subclasses might restrict the number of children returned. aDictionary is pre-calcualted first-sets."	^ self children</body>
+
+<body package="PetitAnalyzer">cycleSet: aStack firstSets: aDictionary into: aSet 	"PRIVATE: Try to find a cycle, where aStack contains the previously visited parsers. The method returns quickly when the receiver is a terminal, terminals cannot be part of a cycle. If aStack already contains the receiver, then we are in a cycle. In this case we don't process the children further and add the nodes to aSet."	| index |	self isTerminal 		ifTrue: [ ^ self ].	( index := aStack indexOf: self ) &gt; 0 		ifTrue: 		[	aSet addAll: ( aStack copyFrom: index to: aStack size ).			^ self		].	aStack addLast: self.	( self cycleSet: aDictionary ) do: [: each | each cycleSet: aStack firstSets: aDictionary into: aSet ].	aStack removeLast.</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-querying</category>
+
+<body package="PetitAnalyzer">firstSet	"Answer the first-set of the receiver. Note, this implementation is inefficient when called on different receivers of the same grammar, instead use #firstSets to calculate the first-sets at once."		^ self firstSets at: self</body>
+
+<body package="PetitAnalyzer">firstSets	"Answer a dictionary with all the parsers reachable from the receiver as key and their first-set as value. The first-set of a parser is the list of terminal parsers that begin the parser derivable from that parser."		| firstSets |	firstSets := IdentityDictionary new.	self allParsersDo: [ :each |		firstSets at: each put: (each isTerminal			ifTrue: [ IdentitySet with: each ]			ifFalse: [ IdentitySet new ]).		each isNullable			ifTrue: [ (firstSets at: each) add: PPSentinel instance ] ].	[	| changed tally |		changed := false.		firstSets keysAndValuesDo: [ :parser :first |			tally := first size.			parser firstSets: firstSets into: first.			changed := changed or: [ tally ~= first size ] ].		changed ] whileTrue.	^ firstSets</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-private</category>
+
+<body package="PetitAnalyzer">firstSets: aFirstDictionary into: aSet	"PRIVATE: Try to add additional elements to the first-set aSet of the receiver, use the incomplete aFirstDictionary."	self children do: [ :parser | aSet addAll: (aFirstDictionary at: parser) ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-querying</category>
+
+<body package="PetitAnalyzer">followSet	"Answer the follow-set of the receiver starting at the receiver. Note, this implementation is inefficient when called on different receivers of the same grammar, instead use #followSets to calculate the follow-sets at once."	^ self followSets at: self</body>
+
+<body package="PetitAnalyzer">followSets	"Answer a dictionary with all the parsers reachable from the receiver as key and their follow-set as value. The follow-set of a parser is the list of terminal parsers that can appear immediately to the right of that parser."		| current previous continue firstSets followSets |	current := previous := 0.	firstSets := self firstSets.	followSets := IdentityDictionary new.	self allParsersDo: [ :each | followSets at: each put: IdentitySet new ].	(followSets at: self) add: PPSentinel instance.	[	followSets keysAndValuesDo: [ :parser :follow |			parser 				followSets: followSets				firstSets: firstSets				into: follow ].		current := followSets			inject: 0			into: [ :result :each | result + each size ].		continue := previous &lt; current.		previous := current.		continue ] whileTrue.	^ followSets</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-private</category>
+
+<body package="PetitAnalyzer">followSets: aFollowDictionary firstSets: aFirstDictionary into: aSet	"PRIVATE: Try to add additional elements to the follow-set aSet of the receiver, use the incomplete aFollowDictionary and the complete aFirstDictionary."		self children do: [ :parser | (aFollowDictionary at: parser) addAll: aSet ]</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-testing</category>
+
+<body package="PetitAnalyzer">isNullable	"Answer true if the receiver is a nullable parser, e.g. it can successfully parse nothing."		^ false</body>
+
+<body package="PetitAnalyzer">isTerminal	"Answer true if the receiver is a terminal or leaf parser, that means it does not delegate to any other parser."	^ self children isEmpty</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-matching</category>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary	^ self match: aParser inContext: aDictionary seen: IdentitySet new</body>
+
+<body package="PetitAnalyzer">match: aParser inContext: aDictionary seen: anIdentitySet	"This is the default implementation to match two parsers. This code can properly handle recursion. This is code is supposed to be overridden in subclasses that add new state."	(self == aParser or: [ anIdentitySet includes: self ])		ifTrue: [ ^ true ].	anIdentitySet add: self.	^ self class = aParser class and: [ self matchList: self children against: aParser children inContext: aDictionary seen: anIdentitySet ]</body>
+
+<body package="PetitAnalyzer">matchList: matchList against: parserList inContext: aDictionary seen: aSet	^ self matchList: matchList index: 1 against: parserList index: 1 inContext: aDictionary seen: aSet</body>
+
+<body package="PetitAnalyzer">matchList: matchList index: matchIndex against: parserList index: parserIndex inContext: aDictionary seen: aSet	| parser currentIndex currentDictionary currentSeen parsers |	matchList size &lt; matchIndex		ifTrue: [ ^ parserList size &lt; parserIndex ].	parser := matchList at: matchIndex.	parser class = PPListPattern ifTrue: [		currentIndex := parserIndex - 1.		[ currentDictionary := aDictionary copy.		currentSeen := aSet copy.		parserList size &lt; currentIndex or: [ 			parsers := parserList copyFrom: parserIndex to: currentIndex.			(currentDictionary at: parser ifAbsentPut: [ parsers ]) = parsers and: [ 				(self					matchList: matchList					index: matchIndex + 1					against: parserList					index: currentIndex + 1					inContext: currentDictionary					seen: currentSeen)					ifTrue: [ 						currentDictionary keysAndValuesDo: [ :key :value | aDictionary at: key put: value ].						^ true ].				false ] ] ] whileFalse: [ currentIndex := currentIndex + 1 ].		^ false ].	parserList size &lt; parserIndex		ifTrue: [ ^ false ].	(parser match: (parserList at: parserIndex) inContext: aDictionary seen: aSet)		ifFalse: [ ^ false ].	^ self		matchList: matchList		index: matchIndex + 1		against: parserList		index: parserIndex + 1		inContext: aDictionary		seen: aSet</body>
+</methods>
+
+<methods>
+<class-id>PetitParser.PPParser</class-id> <category>*petitanalyzer-transforming</category>
+
+<body package="PetitAnalyzer">replace: aParser with: anotherParser	"Replace the references of the receiver pointing to aParser with anotherParser."</body>
+
+<body package="PetitAnalyzer">transform: aBlock	"Answer a copy all parsers reachable from the receiver transformed using aBlock."	| mapping root |	mapping := IdentityDictionary new.	self allParsersDo: [ :each |		mapping			at: each			put: (aBlock value: each copy) ].	root := mapping at: self.	[	| changed |		changed := false.		root allParsersDo: [ :each |			each children do: [ :old |				mapping at: old ifPresent: [ :new |					each replace: old with: new.					changed := true ] ] ].		changed ] whileTrue.	^ root</body>
+</methods>
+
+<do-it>"Imported Classes:"</do-it>
+
+<do-it>self error: 'Attempting to file-in parcel imports.  Choose terminate or close'</do-it>
+
+<class>
+<name>Object</name>
+<environment>Core</environment>
+<super></super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>Kernel-Objects</category>
+<attributes>
+<package>Kernel-Objects</package>
+</attributes>
+</class>
+
+<class>
+<name>PPParser</name>
+<environment>PetitParser</environment>
+<super>Core.Object</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>properties </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPDelegateParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>parser </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPOptionalParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPDelegateParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPTokenParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPFlattenParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>tokenClass </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPActionParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPDelegateParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>block </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPListParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>parsers </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPSequenceParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPListParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPPredicateParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>predicate predicateMessage negated negatedMessage </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPPredicateSequenceParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPPredicateParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>size </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPPluggableParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>block </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPAbstractParseTest</name>
+<environment>PetitParser</environment>
+<super>SUnit.TestCase</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitTests-Core</category>
+<attributes>
+<package>PetitTests</package>
+</attributes>
+</class>
+
+<class>
+<name>PPLiteralParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>literal message </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPRepeatingParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPDelegateParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>min max </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPFailingParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>message </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+<class>
+<name>PPEpsilonParser</name>
+<environment>PetitParser</environment>
+<super>PetitParser.PPParser</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category>PetitParser-Parsers</category>
+<attributes>
+<package>PetitParser</package>
+</attributes>
+</class>
+
+</st-source>

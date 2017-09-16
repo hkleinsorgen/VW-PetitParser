@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<st-source>
+<!-- 
+Name: PetitParser-Preload
+Notice: PetitParser is licensed under the MIT license.
+Comment: A port of the PetitParser
+
+http://source.lukas-renggli.ch/petit.html
+http://scg.unibe.ch/research/helvetia/petitparser
+
+PetitParser is licensed under the MIT license.
+KSignature: #('definedClasses' 0 'definedClassesHash' 0 'extendedClasses' 0 'extendedClassesHash' 0)
+KSignatureV2: #('definedClasses' 0 'definedClassesHash' 1245845410931227995499360226027473197403882391305 'extendedClasses' 0 'extendedClassesHash' 1245845410931227995499360226027473197403882391305)
+PackageName: PetitParser-Preload
+Parcel: #('PetitParser-Preload')
+ParcelDirectory: e:\develop\git\jse\PetitParser-Preload
+TestCoverage: false
+Date: 2:16:14 PM September 16, 2017
+ -->
+<time-stamp>From VisualWorks®, 8.1.1 of 10. März 2016 on 16. September 2017 at 14:16:14</time-stamp>
+
+
+<do-it>(Dialog confirm: 'You are filing-in a Parcel source file!\\While this is possible it will not have\the same effect as loading the parcel.\None of the Parcel''s prerequisites will\be loaded and none of its load actions\will be performed.\\Are you sure you want to file-in?' withCRs) ifFalse: [self error: 'Parcel file-in abandoned.  Choose terminate or close.']</do-it>
+
+<name-space>
+<name>PetitParser</name>
+<environment>Smalltalk</environment>
+<private>false</private>
+<imports>
+			private Smalltalk.*
+			</imports>
+<category></category>
+<attributes>
+<package>PetitParser-Preload</package>
+</attributes>
+</name-space>
+
+<do-it>"Imported Classes:"</do-it>
+
+<do-it>self error: 'Attempting to file-in parcel imports.  Choose terminate or close'</do-it>
+
+</st-source>
